@@ -1,16 +1,27 @@
 // src/App.jsx
-import { Container, Title, Text } from '@mantine/core';
+import { Container, Title, Text, Button, Group } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
+import useAuthStore from './store/auth';
 
 const App = ({ socket }) => {
+  const logout = useAuthStore((state) => state.logout);
+  const username = useAuthStore((state) => state.username);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
 
   return (
     <Container size="md" mt="xl">
-      <Title order={1}>Hexlet Chat</Title>
-      <Text mt="md">Здесь будет основной интерфейс чата.</Text>
-      {/* Кнопка для перехода на страницу логина, чтобы проверить роутинг */}
-      <Text mt="lg">
-        <a href="/login">Перейти на страницу входа (тест)</a>
-      </Text>
+      <Group justify="space-between">
+        <Title order={1}>Hexlet Chat</Title>
+        <Button variant="outline" color="red" onClick={handleLogout}>
+          Выйти
+        </Button>
+      </Group>
+      <Text mt="md">Привет, {username}! Здесь будет основной интерфейс чата.</Text>
     </Container>
   );
 };
