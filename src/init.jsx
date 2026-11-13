@@ -1,11 +1,17 @@
 // src/init.jsx
-import App from './App.jsx';
+import { RouterProvider } from 'react-router-dom';
+import { MantineProvider } from '@mantine/core';
+import '@mantine/core/styles.css'; // Импорт базовых стилей Mantine
+import getRouter from './router.jsx';
 
 const init = async (socket) => {
-  // На этом шаге socket ещё не используется,
-  // но позже сюда добавятся i18n, клиент запросов и хранилища.
-  // Параметр socket сохраняется, чтобы соответствовать контракту.
-  return <App socket={socket} />;
+  const router = getRouter(socket);
+
+  return (
+    <MantineProvider defaultColorScheme="auto">
+      <RouterProvider router={router} />
+    </MantineProvider>
+  );
 };
 
 export default init;
