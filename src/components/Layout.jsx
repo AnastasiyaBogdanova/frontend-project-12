@@ -1,9 +1,11 @@
 // src/components/Layout.jsx
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { Container, Group, Title, Button, Text } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import useAuthStore from '../store/auth';
 
 const Layout = () => {
+  const { t } = useTranslation();
   const token = useAuthStore((state) => state.token);
   const username = useAuthStore((state) => state.username);
   const logout = useAuthStore((state) => state.logout);
@@ -24,14 +26,14 @@ const Layout = () => {
             to="/"
             style={{ textDecoration: 'none', color: 'inherit' }}
           >
-            Hexlet Chat
+            {t('header.title')}
           </Title>
 
           {token && (
             <Group>
-              <Text size="sm">Пользователь: {username}</Text>
+              <Text size="sm">{t('header.user', { username })}</Text>
               <Button variant="outline" color="red" size="xs" onClick={handleLogout}>
-                Выйти
+                {t('header.logout')}
               </Button>
             </Group>
           )}

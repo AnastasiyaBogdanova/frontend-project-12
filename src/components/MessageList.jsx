@@ -1,14 +1,16 @@
 // src/components/MessageList.jsx
 import { ScrollArea, Text, Stack, Paper } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import { useMessages } from '../api/queries';
 import useUIStore from '../store/ui';
 
 const MessageList = () => {
+  const { t } = useTranslation();
   const { data: messages, isLoading, isError } = useMessages();
   const currentChannelId = useUIStore((state) => state.currentChannelId);
 
-  if (isLoading) return <Text>Загрузка сообщений...</Text>;
-  if (isError) return <Text c="red">Не удалось загрузить сообщения</Text>;
+  if (isLoading) return <Text>{t('messages.loading')}</Text>;
+  if (isError) return <Text c="red">{t('messages.loadError')}</Text>;
 
   const filteredMessages = currentChannelId
     ? messages.filter((msg) => msg.channelId === currentChannelId)

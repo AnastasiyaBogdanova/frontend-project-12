@@ -1,11 +1,13 @@
 // src/components/modals/RenameChannelModal.jsx
 import { Modal, TextInput, Button, Group } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useTranslation } from 'react-i18next';
 import { useRenameChannel } from '../../api/mutations';
 import useUIStore from '../../store/ui';
 import { useChannels } from '../../api/queries';
 
 const RenameChannelModal = () => {
+  const { t } = useTranslation();
   const { modal, closeModal } = useUIStore();
   const { data: channels = [] } = useChannels();
   const { mutate, isPending, error } = useRenameChannel();
@@ -16,9 +18,9 @@ const RenameChannelModal = () => {
     initialValues: { name: currentChannel?.name || '' },
     validate: {
       name: (value) => {
-        if (value.length < 3 || value.length > 20) return 'От 3 до 20 символов';
+        if (value.length < 3 || value.length > 20) return t('channels.modal.errors.nameLength');
         if (channels.some((ch) => ch.name === value && ch.id !== modal.channelId)) {
-          return 'Канал с таким именем уже существует';
+          return t('channels.modal.errors.nameExists');
         }
         return null;
       },
@@ -35,13 +37,13 @@ const RenameChannelModal = () => {
     <Modal
       opened={modal.type === 'rename'}
       onClose={closeModal}
-      title="Переименовать канал"
+      title={t('channels.modal.renameTitle')}
       centered
     >
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput
-          label="Новое имя"
-          placeholder="Название канала"
+          label={t('channels.modal.newNameLabel')}
+          placeholder={t('channels.modal.namePlaceholder')}
           data-autofocus
           key={form.key('name')}
           {...form.getInputProps('name')}
@@ -49,8 +51,12 @@ const RenameChannelModal = () => {
           disabled={isPending}
         />
         <Group justify="flex-end" mt="md">
-          <Button variant="default" onClick={closeModal} disabled={isPending}>Отмена</Button>
-          <Button type="submit" loading={isPending}>Сохранить</Button>
+          <Button variant="default" onClick={closeModal} disabled={isPending}>
+            {t('channels.modal.cancel')}
+          </Button>
+          <Button type="submit" loading={isPending}>
+            {t('channels.modal.renameSubmit')}
+          </Button>
         </Group>
       </form>
     </Modal>

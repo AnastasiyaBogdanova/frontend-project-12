@@ -1,0 +1,79 @@
+{
+  "header": {
+    "title": "Hexlet Chat",
+    "logout": "Выйти",
+    "user": "Пользователь: {{username}}"
+  },
+  "login": {
+    "title": "Вход в Hexlet Chat",
+    "username": "Имя пользователя",
+    "password": "Пароль",
+    "submit": "Войти",
+    "noAccount": "Нет аккаунта?",
+    "signupLink": "Зарегистрироваться",
+    "errorTitle": "Ошибка авторизации",
+    "errors": {
+      "usernameRequired": "Введите имя пользователя",
+      "passwordRequired": "Введите пароль",
+      "invalidCredentials": "Неверное имя пользователя или пароль"
+    }
+  },
+ "signup": {
+    "title": "Регистрация в Hexlet Chat",
+    "errorTitle": "Ошибка",
+    "username": "Имя пользователя",
+    "usernamePlaceholder": "От 3 до 20 символов",
+    "password": "Пароль",
+    "passwordPlaceholder": "Не менее 6 символов",
+    "confirmPassword": "Подтверждение пароля",
+    "confirmPasswordPlaceholder": "Повторите пароль",
+    "submit": "Зарегистрироваться",
+    "hasAccount": "Уже есть аккаунт?",
+    "loginLink": "Войти",
+    "errors": {
+      "usernameLength": "Имя пользователя должно быть от 3 до 20 символов",
+      "passwordLength": "Пароль должен быть не менее 6 символов",
+      "passwordsMismatch": "Пароли не совпадают",
+      "userExists": "Пользователь с таким именем уже существует",
+      "general": "Ошибка при регистрации"
+    }
+  },
+  "channels": {
+    "title": "Каналы",
+    "loading": "Загрузка каналов...",
+    "loadError": "Не удалось загрузить каналы",
+    "create": "Создать канал",
+    "rename": "Переименовать",
+    "delete": "Удалить",
+    "modal": {
+      "createTitle": "Создать канал",
+      "renameTitle": "Переименовать канал",
+      "deleteTitle": "Удалить канал?",
+      "deleteConfirm": "Вы уверены, что хотите удалить канал # {{name}}? Все сообщения в этом канале будут безвозвратно утеряны.",
+      "nameLabel": "Имя канала",
+      "newNameLabel": "Новое имя",
+      "namePlaceholder": "Название канала",
+      "cancel": "Отмена",
+      "createSubmit": "Создать",
+      "renameSubmit": "Сохранить",
+      "deleteSubmit": "Удалить",
+      "errors": {
+        "nameLength": "От 3 до 20 символов",
+        "nameExists": "Канал с таким именем уже существует"
+      }
+    }
+  },
+  "messages": {
+    "loading": "Загрузка сообщений...",
+    "loadError": "Не удалось загрузить сообщения",
+    "placeholder": "Введите сообщение...",
+    "submit": "Отправить",
+    "emptyError": "Сообщение не может быть пустым",
+    "sendError": "Не удалось отправить сообщение"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Страница не найдена",
+    "back": "Вернуться на главную"
+  }
+}
