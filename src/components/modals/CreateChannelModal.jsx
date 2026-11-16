@@ -2,6 +2,8 @@
 import { Modal, TextInput, Button, Group } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useTranslation } from 'react-i18next';
+import { notifications } from '@mantine/notifications';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import { useCreateChannel } from '../../api/mutations';
 import useUIStore from '../../store/ui';
 import { useChannels } from '../../api/queries';
@@ -28,6 +30,20 @@ const CreateChannelModal = () => {
       onSuccess: () => {
         form.reset();
         closeModal();
+        notifications.show({
+          title: t('notifications.successTitle'),
+          message: t('channels.createSuccess'),
+          color: 'green',
+          icon: <IconCheck size={16} />,
+        });
+      },
+      onError: () => {
+        notifications.show({
+          title: t('notifications.errorTitle'),
+          message: t('channels.actionError'),
+          color: 'red',
+          icon: <IconX size={16} />,
+        });
       },
     });
   };

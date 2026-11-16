@@ -1,6 +1,8 @@
 // src/components/modals/DeleteChannelModal.jsx
 import { Modal, Text, Button, Group } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
+import { notifications } from '@mantine/notifications';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import { useDeleteChannel } from '../../api/mutations';
 import useUIStore from '../../store/ui';
 import { useChannels } from '../../api/queries';
@@ -15,7 +17,23 @@ const DeleteChannelModal = () => {
 
   const handleDelete = () => {
     mutate(modal.channelId, {
-      onSuccess: () => closeModal(),
+      onSuccess: () => {
+        closeModal();
+        notifications.show({
+          title: t('notifications.successTitle'),
+          message: t('channels.deleteSuccess'),
+          color: 'green',
+          icon: <IconCheck size={16} />,
+        });
+      },
+      onError: () => {
+        notifications.show({
+          title: t('notifications.errorTitle'),
+          message: t('channels.actionError'),
+          color: 'red',
+          icon: <IconX size={16} />,
+        });
+      },
     });
   };
 

@@ -1,14 +1,16 @@
 // src/components/MessageForm.jsx
 import { useForm } from '@mantine/form';
-import { TextInput, Button, Group, Loader, Text } from '@mantine/core';
+import { TextInput, Button, Group, Loader } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
+import { notifications } from '@mantine/notifications';
+import { IconX } from '@tabler/icons-react';
 import { useSendMessage } from '../api/mutations';
 import useUIStore from '../store/ui';
 
 const MessageForm = () => {
   const { t } = useTranslation();
   const currentChannelId = useUIStore((state) => state.currentChannelId);
-  const { mutate, isPending, isError, error } = useSendMessage();
+  const { mutate, isPending } = useSendMessage();
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -24,6 +26,14 @@ const MessageForm = () => {
       { body: values.body, channelId: currentChannelId },
       {
         onSuccess: () => form.reset(),
+        onError: () => {
+          notifications.show({
+            title: t('notifications.errorTitle'),
+            message: t('messages.sendError'),
+            color: 'red',
+            icon: <IconX size={16} />,
+          });
+        },
       }
     );
   };
@@ -42,7 +52,6 @@ const MessageForm = () => {
           {isPending ? <Loader size="xs" color="white" /> : t('messages.submit')}
         </Button>
       </Group>
-      {isError && <Text c="red" size="sm" mt="xs">{error.message}</Text>}
     </form>
   );
 };

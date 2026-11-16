@@ -4,6 +4,13 @@
     "logout": "Выйти",
     "user": "Пользователь: {{username}}"
   },
+  "notifications": {
+    "successTitle": "Успешно",
+    "errorTitle": "Ошибка"
+  },
+  "errors": {
+    "network": "Ошибка сети. Проверьте подключение к интернету."
+  },
   "login": {
     "title": "Вход в Hexlet Chat",
     "username": "Имя пользователя",
@@ -18,7 +25,7 @@
       "invalidCredentials": "Неверное имя пользователя или пароль"
     }
   },
- "signup": {
+  "signup": {
     "title": "Регистрация в Hexlet Chat",
     "errorTitle": "Ошибка",
     "username": "Имя пользователя",
@@ -45,6 +52,10 @@
     "create": "Создать канал",
     "rename": "Переименовать",
     "delete": "Удалить",
+    "createSuccess": "Канал успешно создан",
+    "renameSuccess": "Канал успешно переименован",
+    "deleteSuccess": "Канал успешно удален",
+    "actionError": "Не удалось выполнить действие",
     "modal": {
       "createTitle": "Создать канал",
       "renameTitle": "Переименовать канал",
