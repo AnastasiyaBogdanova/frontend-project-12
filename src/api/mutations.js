@@ -53,7 +53,7 @@ export const useCreateChannel = () => {
     }),
     onSuccess: (newChannel) => {
       queryClient.invalidateQueries({ queryKey: ['channels'] });
-      setCurrentChannelId(newChannel.id); // Переходим в созданный канал
+      setCurrentChannelId(newChannel.id);
     },
   });
 };

@@ -42,7 +42,7 @@ const CreateChannelModal = () => {
         <TextInput
           label="Имя канала"
           placeholder="Название канала"
-          data-autofocus // Автофокус при открытии
+          data-autofocus
           key={form.key('name')}
           {...form.getInputProps('name')}
           error={form.errors.name || error?.message}

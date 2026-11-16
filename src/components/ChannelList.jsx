@@ -1,6 +1,6 @@
 // src/components/ChannelList.jsx
 import { NavLink, Stack, Text, Group, ActionIcon, Menu, Button, Box } from '@mantine/core';
-import { IconPlus, IconDots, IconEdit, IconTrash } from '@tabler/icons-react'; // Понадобится установить @tabler/icons-react
+import { IconPlus, IconDots, IconEdit, IconTrash } from '@tabler/icons-react';
 import { useChannels } from '../api/queries';
 import useUIStore from '../store/ui';
 

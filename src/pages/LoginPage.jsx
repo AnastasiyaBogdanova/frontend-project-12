@@ -1,8 +1,8 @@
 // src/pages/LoginPage.jsx
 import { useState } from 'react';
 import { useForm } from '@mantine/form';
-import { TextInput, PasswordInput, Button, Box, Title, Container, Alert } from '@mantine/core';
-import { useNavigate, Navigate } from 'react-router-dom';
+import { TextInput, PasswordInput, Button, Box, Title, Container, Alert, Anchor, Text } from '@mantine/core';
+import { useNavigate, Navigate, Link } from 'react-router-dom';
 import useAuthStore from '../store/auth';
 
 const LoginPage = () => {
@@ -84,6 +84,9 @@ const LoginPage = () => {
         <Button type="submit" fullWidth mt="xl">
           Войти
         </Button>
+        <Text ta="center" mt="md">
+          Нет аккаунта? <Anchor component={Link} to="/signup">Зарегистрироваться</Anchor>
+        </Text>
       </Box>
     </Container>
   );
