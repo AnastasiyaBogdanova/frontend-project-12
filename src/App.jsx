@@ -9,6 +9,9 @@ import ChannelList from './components/ChannelList';
 import MessageList from './components/MessageList';
 import MessageForm from './components/MessageForm';
 import { useSocketMessages } from './hooks/useSocketMessages';
+import CreateChannelModal from './components/modals/CreateChannelModal';
+import RenameChannelModal from './components/modals/RenameChannelModal';
+import DeleteChannelModal from './components/modals/DeleteChannelModal';
 
 const App = ({ socket }) => {
   useSocketMessages(socket);
@@ -47,7 +50,6 @@ const App = ({ socket }) => {
 
       <Grid>
         <Grid.Col span={{ base: 12, md: 3 }}>
-          <Title order={4} mb="sm">Каналы</Title>
           <ChannelList />
         </Grid.Col>
 
@@ -60,6 +62,10 @@ const App = ({ socket }) => {
           </div>
         </Grid.Col>
       </Grid>
+
+      <CreateChannelModal />
+      <RenameChannelModal />
+      <DeleteChannelModal />
     </Container>
   );
 };
