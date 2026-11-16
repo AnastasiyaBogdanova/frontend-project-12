@@ -7,8 +7,12 @@ import useUIStore from './store/ui';
 import { useChannels } from './api/queries';
 import ChannelList from './components/ChannelList';
 import MessageList from './components/MessageList';
+import MessageForm from './components/MessageForm';
+import { useSocketMessages } from './hooks/useSocketMessages';
 
 const App = ({ socket }) => {
+  useSocketMessages(socket);
+
   const logout = useAuthStore((state) => state.logout);
   const username = useAuthStore((state) => state.username);
   const navigate = useNavigate();
@@ -17,10 +21,10 @@ const App = ({ socket }) => {
   const currentChannelId = useUIStore((state) => state.currentChannelId);
   const setCurrentChannelId = useUIStore((state) => state.setCurrentChannelId);
 
-  // Автоматически выбираем первый канал, если ни один не выбран
   useEffect(() => {
     if (channels?.length && !currentChannelId) {
-      setCurrentChannelId(channels[0].id);
+      const generalChannel = channels.find((ch) => ch.name === 'general');
+      setCurrentChannelId(generalChannel ? generalChannel.id : channels[0].id);
     }
   }, [channels, currentChannelId, setCurrentChannelId]);
 
@@ -46,8 +50,14 @@ const App = ({ socket }) => {
           <Title order={4} mb="sm">Каналы</Title>
           <ChannelList />
         </Grid.Col>
+
         <Grid.Col span={{ base: 12, md: 9 }}>
-          <MessageList />
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+            <MessageList />
+            <div style={{ marginTop: '1rem' }}>
+              <MessageForm />
+            </div>
+          </div>
         </Grid.Col>
       </Grid>
     </Container>
