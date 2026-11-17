@@ -4,6 +4,7 @@ import { MantineProvider } from '@mantine/core';
 import { Notifications, notifications } from '@mantine/notifications';
 import { QueryClient, QueryClientProvider, QueryCache } from '@tanstack/react-query';
 import { I18nextProvider } from 'react-i18next';
+import * as Sentry from '@sentry/react';
 import '@mantine/core/styles.css';
 import '@mantine/notifications/styles.css';
 import i18n from './i18n.js';
@@ -27,6 +28,15 @@ const queryClient = new QueryClient({
 });
 
 const init = async (socket) => {
+  if (import.meta.env.VITE_SENTRY_DSN) {
+    Sentry.init({
+      dsn: import.meta.env.VITE_SENTRY_DSN,
+      environment: import.meta.env.MODE,
+      integrations: [],
+      tracesSampleRate: 0,
+    });
+  }
+
   const router = getRouter(socket);
 
   return (
@@ -34,7 +44,9 @@ const init = async (socket) => {
       <MantineProvider defaultColorScheme="auto">
         <Notifications position="top-right" zIndex={1000} />
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
+          <Sentry.ErrorBoundary fallback={<p>Произошла непредвиденная ошибка.</p>}>
+            <RouterProvider router={router} />
+          </Sentry.ErrorBoundary>
         </QueryClientProvider>
       </MantineProvider>
     </I18nextProvider>
