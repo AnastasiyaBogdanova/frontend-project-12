@@ -7,6 +7,7 @@ import { IconCheck, IconX } from '@tabler/icons-react';
 import { useCreateChannel } from '../../api/mutations';
 import useUIStore from '../../store/ui';
 import { useChannels } from '../../api/queries';
+import filter from '../../utils/profanity';
 
 const CreateChannelModal = () => {
   const { t } = useTranslation();
@@ -26,7 +27,10 @@ const CreateChannelModal = () => {
   });
 
   const handleSubmit = (values) => {
-    mutate(values.name, {
+
+    const cleanedName = filter.clean(values.name);
+
+    mutate(cleanedName, {
       onSuccess: () => {
         form.reset();
         closeModal();

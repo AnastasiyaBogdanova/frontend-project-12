@@ -6,6 +6,7 @@ import { notifications } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react';
 import { useSendMessage } from '../api/mutations';
 import useUIStore from '../store/ui';
+import filter from '../utils/profanity';
 
 const MessageForm = () => {
   const { t } = useTranslation();
@@ -22,8 +23,11 @@ const MessageForm = () => {
 
   const handleSubmit = (values) => {
     if (!currentChannelId) return;
+
+    const cleanedBody = filter.clean(values.body);
+
     mutate(
-      { body: values.body, channelId: currentChannelId },
+      { body: cleanedBody, channelId: currentChannelId },
       {
         onSuccess: () => form.reset(),
         onError: () => {
