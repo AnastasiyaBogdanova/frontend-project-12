@@ -46,12 +46,12 @@ const MessageForm = () => {
     <form onSubmit={form.onSubmit(handleSubmit)}>
       <Group align="flex-end" gap="sm">
         <TextInput
+          aria-label={t('messages.newMessageLabel')}
           placeholder={t('messages.placeholder')}
           style={{ flex: 1 }}
           key={form.key('body')}
           {...form.getInputProps('body')}
           disabled={isPending}
-          aria-label={t('messages.placeholder')}
         />
         <Button type="submit" disabled={isPending}>
           {isPending ? <Loader size="xs" color="white" /> : t('messages.submit')}

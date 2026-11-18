@@ -35,6 +35,7 @@ const ChannelList = () => {
         return (
           <Group key={channel.id} wrap="nowrap" gap={0} justify="space-between">
             <NavLink
+              component="button"
               label={`# ${channel.name}`}
               active={channel.id === currentChannelId}
               onClick={() => setCurrentChannelId(channel.id)}
