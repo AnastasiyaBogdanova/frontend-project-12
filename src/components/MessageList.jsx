@@ -2,7 +2,7 @@
 import { ScrollArea, Text, Stack, Paper } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { useMessages } from '../api/queries';
-import useUIStore from '../store/StoreProvider';
+import { useUIStore } from '../store/StoreProvider';
 
 const MessageList = () => {
   const { t } = useTranslation();
