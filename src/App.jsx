@@ -1,7 +1,7 @@
 // src/App.jsx
 import { Grid } from '@mantine/core';
 import { useEffect } from 'react';
-import useUIStore from './store/ui';
+import useUIStore from './store/StoreProvider';
 import { useChannels } from './api/queries';
 import ChannelList from './components/ChannelList';
 import MessageList from './components/MessageList';
