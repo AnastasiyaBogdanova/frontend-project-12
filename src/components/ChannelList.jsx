@@ -12,18 +12,18 @@ const ChannelList = () => {
   const setCurrentChannelId = useUIStore((state) => state.setCurrentChannelId);
   const openModal = useUIStore((state) => state.openModal);
 
-  if (isLoading) return <Text>{t('channels.loading', 'Загрузка каналов...')}</Text>;
-  if (isError) return <Text c="red">{t('errors.network', 'Ошибка соединения')}</Text>;
+  if (isLoading) return <Text>{t('channels.loading')}</Text>;
+  if (isError) return <Text c="red">{t('errors.network')}</Text>;
 
   return (
     <Stack gap="xs">
       <Group justify="space-between" mb="sm">
-        <Text fw={500}>{t('channels.title', 'Каналы')}</Text>
+        <Text fw={500}>{t('channels.title')}</Text>
         <ActionIcon
           variant="light"
           color="blue"
           onClick={() => openModal('create')}
-          title={t('channels.create', 'Создать канал')}
+          aria-label="+"
         >
           <IconPlus size={16} />
         </ActionIcon>
@@ -45,17 +45,17 @@ const ChannelList = () => {
             {isRemovable && (
               <Menu shadow="md" width={200} position="bottom-end">
                 <Menu.Target>
-                  <ActionIcon variant="subtle" color="gray" aria-label={t('channels.channelManagement', 'Управление каналом')}>
+                  <ActionIcon variant="subtle" color="gray" aria-label={t('channels.channelManagement')}>
                     <IconDots size={16} />
                   </ActionIcon>
                 </Menu.Target>
                 <Menu.Dropdown>
-                  <Menu.Label>{t('channels.channelManagement', 'Управление каналом')}</Menu.Label>
+                  <Menu.Label>{t('channels.channelManagement')}</Menu.Label>
                   <Menu.Item leftSection={<IconEdit size={14} />} onClick={() => openModal('rename', channel.id)}>
-                    {t('channels.rename', 'Переименовать')}
+                    {t('channels.rename')}
                   </Menu.Item>
                   <Menu.Item color="red" leftSection={<IconTrash size={14} />} onClick={() => openModal('delete', channel.id)}>
-                    {t('channels.delete', 'Удалить')}
+                    {t('channels.delete')}
                   </Menu.Item>
                 </Menu.Dropdown>
               </Menu>

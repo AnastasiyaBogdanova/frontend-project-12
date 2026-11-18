@@ -66,14 +66,12 @@ const LoginPage = () => {
       <Box component="form" onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput
           label={t('login.usernameLabel', 'Ваш ник')}
-          withAsterisk
           key={form.key('username')}
           {...form.getInputProps('username')}
         />
 
         <PasswordInput
           label={t('login.passwordLabel', 'Пароль')}
-          withAsterisk
           mt="md"
           key={form.key('password')}
           {...form.getInputProps('password')}

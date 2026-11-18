@@ -76,7 +76,6 @@ const SignupPage = () => {
         <TextInput
           label={t('signup.usernameLabel', 'Имя пользователя')}
           placeholder={t('signup.usernamePlaceholder', 'От 3 до 20 символов')}
-          withAsterisk
           key={form.key('username')}
           {...form.getInputProps('username')}
         />
@@ -84,7 +83,6 @@ const SignupPage = () => {
         <PasswordInput
           label={t('signup.passwordLabel', 'Пароль')}
           placeholder={t('signup.passwordPlaceholder', 'Не менее 6 символов')}
-          withAsterisk
           mt="md"
           key={form.key('password')}
           {...form.getInputProps('password')}
@@ -93,7 +91,6 @@ const SignupPage = () => {
         <PasswordInput
           label={t('signup.confirmPasswordLabel', 'Подтвердите пароль')}
           placeholder={t('signup.confirmPasswordPlaceholder', 'Пароли должны совпадать')}
-          withAsterisk
           mt="md"
           key={form.key('confirmPassword')}
           {...form.getInputProps('confirmPassword')}
