@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { useRenameChannel } from '../../api/mutations';
-import useUIStore from '../../store/ui';
+import { useUIStore } from '../../store/StoreProvider';
 import { useChannels } from '../../api/queries';
 
 const RenameChannelModal = () => {
@@ -37,7 +37,7 @@ const RenameChannelModal = () => {
           closeModal();
           notifications.show({
             title: t('notifications.successTitle'),
-            message: t('channels.renameSuccess'),
+            message: t('channels.renamed'),
             color: 'green',
             icon: <IconCheck size={16} />,
           });
@@ -45,7 +45,7 @@ const RenameChannelModal = () => {
         onError: () => {
           notifications.show({
             title: t('notifications.errorTitle'),
-            message: t('channels.actionError'),
+            message: t('messages.sendError'),
             color: 'red',
             icon: <IconX size={16} />,
           });
@@ -63,7 +63,7 @@ const RenameChannelModal = () => {
     >
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput
-          label={t('channels.modal.newNameLabel')}
+          label={t('channels.modal.nameLabel')}
           placeholder={t('channels.modal.namePlaceholder')}
           data-autofocus
           key={form.key('name')}

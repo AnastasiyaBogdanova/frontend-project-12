@@ -1,6 +1,6 @@
 // src/api/queries.js
 import { useQuery } from '@tanstack/react-query';
-import useAuthStore from '../store/auth';
+import { useAuthStore } from '../store/StoreProvider';
 
 const fetchChannels = async (token) => {
   const response = await fetch('/api/v1/channels', {

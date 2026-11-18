@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { useCreateChannel } from '../../api/mutations';
-import useUIStore from '../../store/ui';
+import { useUIStore } from '../../store/StoreProvider';
 import { useChannels } from '../../api/queries';
 import filter from '../../utils/profanity';
 
@@ -27,7 +27,6 @@ const CreateChannelModal = () => {
   });
 
   const handleSubmit = (values) => {
-
     const cleanedName = filter.clean(values.name);
 
     mutate(cleanedName, {
@@ -36,7 +35,7 @@ const CreateChannelModal = () => {
         closeModal();
         notifications.show({
           title: t('notifications.successTitle'),
-          message: t('channels.createSuccess'),
+          message: t('channels.created'),
           color: 'green',
           icon: <IconCheck size={16} />,
         });
@@ -44,7 +43,7 @@ const CreateChannelModal = () => {
       onError: () => {
         notifications.show({
           title: t('notifications.errorTitle'),
-          message: t('channels.actionError'),
+          message: t('messages.sendError'),
           color: 'red',
           icon: <IconX size={16} />,
         });

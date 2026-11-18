@@ -4,8 +4,7 @@ import { useForm } from '@mantine/form';
 import { TextInput, PasswordInput, Button, Box, Title, Container, Alert, Anchor, Text } from '@mantine/core';
 import { useNavigate, Navigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import useAuthStore from '../store/auth';
-
+import { useAuthStore } from '../store/StoreProvider';
 const LoginPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -20,8 +19,8 @@ const LoginPage = () => {
       password: '',
     },
     validate: {
-      username: (value) => (value.length > 0 ? null : t('login.errors.usernameRequired')),
-      password: (value) => (value.length > 0 ? null : t('login.errors.passwordRequired')),
+      username: (value) => (value.length > 0 ? null : t('login.errors.usernameRequired', 'Введите имя пользователя')),
+      password: (value) => (value.length > 0 ? null : t('login.errors.passwordRequired', 'Введите пароль')),
     },
   });
 
@@ -42,7 +41,7 @@ const LoginPage = () => {
       });
 
       if (!response.ok) {
-        throw new Error(t('login.errors.invalidCredentials'));
+        throw new Error(t('login.invalidCredentials', 'Неверные имя пользователя или пароль'));
       }
 
       const data = await response.json();
@@ -56,7 +55,7 @@ const LoginPage = () => {
 
   return (
     <Container size={420} my={40}>
-      <Title ta="center" mb="lg">{t('login.title')}</Title>
+      <Title ta="center" mb="lg">{t('login.title', 'Вход')}</Title>
 
       {authError && (
         <Alert color="red" title={t('login.errorTitle', 'Ошибка авторизации')} mb="md">
@@ -66,16 +65,14 @@ const LoginPage = () => {
 
       <Box component="form" onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput
-          label={t('login.username')}
-          placeholder={t('login.username')}
+          label={t('login.usernameLabel', 'Ваш ник')}
           withAsterisk
           key={form.key('username')}
           {...form.getInputProps('username')}
         />
 
         <PasswordInput
-          label={t('login.password')}
-          placeholder={t('login.password')}
+          label={t('login.passwordLabel', 'Пароль')}
           withAsterisk
           mt="md"
           key={form.key('password')}
@@ -83,10 +80,10 @@ const LoginPage = () => {
         />
 
         <Button type="submit" fullWidth mt="xl">
-          {t('login.submit')}
+          {t('login.submit', 'Войти')}
         </Button>
         <Text ta="center" mt="md">
-          {t('login.noAccount')} <Anchor component={Link} to="/signup">{t('login.signupLink')}</Anchor>
+          {t('login.noAccount', 'Нет аккаунта?')} <Anchor component={Link} to="/signup">{t('login.signupLink', 'Регистрация')}</Anchor>
         </Text>
       </Box>
     </Container>

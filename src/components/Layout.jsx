@@ -2,7 +2,7 @@
 import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { Container, Group, Title, Button, Text } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
-import useAuthStore from '../store/auth';
+import { useAuthStore } from '../store/StoreProvider';
 
 const Layout = () => {
   const { t } = useTranslation();
@@ -26,14 +26,14 @@ const Layout = () => {
             to="/"
             style={{ textDecoration: 'none', color: 'inherit' }}
           >
-            {t('header.title')}
+            {t('header.title', 'Hexlet Chat')}
           </Title>
 
           {token && (
             <Group>
               <Text size="sm">{t('header.user', { username })}</Text>
               <Button variant="outline" color="red" size="xs" onClick={handleLogout}>
-                {t('header.logout')}
+                {t('header.logout', 'Выйти')}
               </Button>
             </Group>
           )}

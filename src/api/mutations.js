@@ -1,7 +1,6 @@
 // src/api/mutations.js
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import useAuthStore from '../store/auth';
-import useUIStore from '../store/ui';
+import { useAuthStore, useUIStore } from '../store/StoreProvider';
 
 const postMessage = async ({ token, body, channelId }) => {
   const response = await fetch('/api/v1/messages', {
@@ -12,7 +11,7 @@ const postMessage = async ({ token, body, channelId }) => {
     },
     body: JSON.stringify({ body, channelId }),
   });
-  if (!response.ok) throw new Error('Не удалось отправить сообщение');
+  if (!response.ok) throw new Error('Ошибка отправки сообщения');
   return response.json();
 };
 
@@ -24,8 +23,7 @@ export const useSendMessage = () => {
   });
 };
 
-const fetchWithAuth = async (url, options = {}) => {
-  const token = useAuthStore.getState().token;
+const fetchWithAuth = async (url, token, options = {}) => {
   const response = await fetch(url, {
     ...options,
     headers: {
@@ -44,10 +42,11 @@ const fetchWithAuth = async (url, options = {}) => {
 
 export const useCreateChannel = () => {
   const queryClient = useQueryClient();
+  const token = useAuthStore((state) => state.token);
   const setCurrentChannelId = useUIStore((state) => state.setCurrentChannelId);
 
   return useMutation({
-    mutationFn: (name) => fetchWithAuth('/api/v1/channels', {
+    mutationFn: (name) => fetchWithAuth('/api/v1/channels', token, {
       method: 'POST',
       body: JSON.stringify({ name }),
     }),
@@ -60,9 +59,10 @@ export const useCreateChannel = () => {
 
 export const useRenameChannel = () => {
   const queryClient = useQueryClient();
+  const token = useAuthStore((state) => state.token);
 
   return useMutation({
-    mutationFn: ({ id, name }) => fetchWithAuth(`/api/v1/channels/${id}`, {
+    mutationFn: ({ id, name }) => fetchWithAuth(`/api/v1/channels/${id}`, token, {
       method: 'PATCH',
       body: JSON.stringify({ name }),
     }),
@@ -74,10 +74,11 @@ export const useRenameChannel = () => {
 
 export const useDeleteChannel = () => {
   const queryClient = useQueryClient();
+  const token = useAuthStore((state) => state.token);
   const setCurrentChannelId = useUIStore((state) => state.setCurrentChannelId);
 
   return useMutation({
-    mutationFn: (id) => fetchWithAuth(`/api/v1/channels/${id}`, {
+    mutationFn: (id) => fetchWithAuth(`/api/v1/channels/${id}`, token, {
       method: 'DELETE',
     }),
     onSuccess: () => {

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { notifications } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react';
 import { useSendMessage } from '../api/mutations';
-import useUIStore from '../store/ui';
+import { useUIStore } from '../store/StoreProvider';
 import filter from '../utils/profanity';
 
 const MessageForm = () => {
@@ -51,6 +51,7 @@ const MessageForm = () => {
           key={form.key('body')}
           {...form.getInputProps('body')}
           disabled={isPending}
+          aria-label={t('messages.placeholder')}
         />
         <Button type="submit" disabled={isPending}>
           {isPending ? <Loader size="xs" color="white" /> : t('messages.submit')}

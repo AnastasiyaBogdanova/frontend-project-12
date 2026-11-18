@@ -1,8 +1,7 @@
-// src/store/auth.js
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-const useAuthStore = create(
+export const createAuthStore = () => create(
   persist(
     (set) => ({
       token: null,
@@ -10,10 +9,6 @@ const useAuthStore = create(
       login: (token, username) => set({ token, username }),
       logout: () => set({ token: null, username: null }),
     }),
-    {
-      name: 'auth-storage', 
-    }
+    { name: 'auth-storage' }
   )
 );
-
-export default useAuthStore;

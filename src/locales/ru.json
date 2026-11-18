@@ -4,43 +4,36 @@
     "logout": "Выйти",
     "user": "Пользователь: {{username}}"
   },
-  "notifications": {
-    "successTitle": "Успешно",
-    "errorTitle": "Ошибка"
-  },
-  "errors": {
-    "network": "Ошибка сети. Проверьте подключение к интернету."
-  },
   "login": {
-    "title": "Вход в Hexlet Chat",
-    "username": "Имя пользователя",
-    "password": "Пароль",
+    "title": "Вход",
+    "usernameLabel": "Ваш ник",
+    "passwordLabel": "Пароль",
     "submit": "Войти",
     "noAccount": "Нет аккаунта?",
-    "signupLink": "Зарегистрироваться",
+    "signupLink": "Регистрация",
     "errorTitle": "Ошибка авторизации",
+    "invalidCredentials": "Неверные имя пользователя или пароль",
     "errors": {
       "usernameRequired": "Введите имя пользователя",
-      "passwordRequired": "Введите пароль",
-      "invalidCredentials": "Неверное имя пользователя или пароль"
+      "passwordRequired": "Введите пароль"
     }
   },
   "signup": {
-    "title": "Регистрация в Hexlet Chat",
+    "title": "Регистрация",
     "errorTitle": "Ошибка",
-    "username": "Имя пользователя",
+    "usernameLabel": "Имя пользователя",
     "usernamePlaceholder": "От 3 до 20 символов",
-    "password": "Пароль",
+    "passwordLabel": "Пароль",
     "passwordPlaceholder": "Не менее 6 символов",
-    "confirmPassword": "Подтверждение пароля",
-    "confirmPasswordPlaceholder": "Повторите пароль",
+    "confirmPasswordLabel": "Подтвердите пароль",
+    "confirmPasswordPlaceholder": "Пароли должны совпадать",
     "submit": "Зарегистрироваться",
     "hasAccount": "Уже есть аккаунт?",
     "loginLink": "Войти",
     "errors": {
-      "usernameLength": "Имя пользователя должно быть от 3 до 20 символов",
-      "passwordLength": "Пароль должен быть не менее 6 символов",
-      "passwordsMismatch": "Пароли не совпадают",
+      "usernameLength": "От 3 до 20 символов",
+      "passwordLength": "Не менее 6 символов",
+      "passwordsMismatch": "Пароли должны совпадать",
       "userExists": "Пользователь с таким именем уже существует",
       "general": "Ошибка при регистрации"
     }
@@ -48,22 +41,19 @@
   "channels": {
     "title": "Каналы",
     "loading": "Загрузка каналов...",
-    "loadError": "Не удалось загрузить каналы",
-    "create": "Создать канал",
+    "create": "+",
+    "channelManagement": "Управление каналом",
     "rename": "Переименовать",
     "delete": "Удалить",
-    "createSuccess": "Канал успешно создан",
-    "renameSuccess": "Канал успешно переименован",
-    "deleteSuccess": "Канал успешно удален",
-    "actionError": "Не удалось выполнить действие",
+    "created": "Канал создан",
+    "renamed": "Канал переименован",
+    "deleted": "Канал удалён",
     "modal": {
       "createTitle": "Создать канал",
       "renameTitle": "Переименовать канал",
       "deleteTitle": "Удалить канал?",
-      "deleteConfirm": "Вы уверены, что хотите удалить канал # {{name}}? Все сообщения в этом канале будут безвозвратно утеряны.",
+      "deleteConfirm": "Вы уверены?",
       "nameLabel": "Имя канала",
-      "newNameLabel": "Новое имя",
-      "namePlaceholder": "Название канала",
       "cancel": "Отмена",
       "createSubmit": "Создать",
       "renameSubmit": "Сохранить",
@@ -75,12 +65,17 @@
     }
   },
   "messages": {
-    "loading": "Загрузка сообщений...",
-    "loadError": "Не удалось загрузить сообщения",
     "placeholder": "Введите сообщение...",
     "submit": "Отправить",
-    "emptyError": "Сообщение не может быть пустым",
-    "sendError": "Не удалось отправить сообщение"
+    "loading": "Загрузка сообщений...",
+    "sendError": "Ошибка соединения"
+  },
+  "errors": {
+    "network": "Ошибка соединения"
+  },
+  "notifications": {
+    "successTitle": "Успешно",
+    "errorTitle": "Ошибка"
   },
   "notFound": {
     "title": "404",
