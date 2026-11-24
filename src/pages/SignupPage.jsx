@@ -1,6 +1,7 @@
 // src/pages/SignupPage.jsx
 import { useState } from 'react';
-import { useForm, yupResolver } from '@mantine/form';
+import { useForm } from '@mantine/form';
+import { yupResolver } from 'mantine-form-yup-resolver';
 import { TextInput, PasswordInput, Button, Box, Title, Container, Alert, Anchor, Text } from '@mantine/core';
 import { useNavigate, Navigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

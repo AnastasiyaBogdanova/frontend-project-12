@@ -1,5 +1,6 @@
 // src/components/MessageForm.jsx
-import { useForm, yupResolver } from '@mantine/form';
+import { useForm } from '@mantine/form';
+import { yupResolver } from 'mantine-form-yup-resolver';
 import { TextInput, Button, Group, Loader } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { notifications } from '@mantine/notifications';
