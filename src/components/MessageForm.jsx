@@ -1,9 +1,10 @@
 // src/components/MessageForm.jsx
-import { useForm } from '@mantine/form';
+import { useForm, yupResolver } from '@mantine/form';
 import { TextInput, Button, Group, Loader } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import { notifications } from '@mantine/notifications';
 import { IconX } from '@tabler/icons-react';
+import * as Yup from 'yup';
 import { useSendMessage } from '../api/mutations';
 import { useUIStore } from '../store/StoreProvider';
 import filter from '../utils/profanity';
@@ -13,12 +14,14 @@ const MessageForm = () => {
   const currentChannelId = useUIStore((state) => state.currentChannelId);
   const { mutate, isPending } = useSendMessage();
 
+  const schema = Yup.object().shape({
+    body: Yup.string().trim().required(t('messages.emptyError', 'Сообщение не может быть пустым')),
+  });
+
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: { body: '' },
-    validate: {
-      body: (value) => (value.trim().length > 0 ? null : t('messages.emptyError')),
-    },
+    validate: yupResolver(schema),
   });
 
   const handleSubmit = (values) => {

@@ -1,9 +1,10 @@
 // src/components/modals/CreateChannelModal.jsx
 import { Modal, TextInput, Button, Group } from '@mantine/core';
-import { useForm } from '@mantine/form';
+import { useForm, yupResolver } from '@mantine/form';
 import { useTranslation } from 'react-i18next';
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react';
+import * as Yup from 'yup';
 import { useCreateChannel } from '../../api/mutations';
 import { useUIStore } from '../../store/StoreProvider';
 import { useChannels } from '../../api/queries';
@@ -15,15 +16,21 @@ const CreateChannelModal = () => {
   const { data: channels = [] } = useChannels();
   const { mutate, isPending, error } = useCreateChannel();
 
+  const schema = Yup.object().shape({
+    name: Yup.string()
+      .min(3, t('channels.modal.errors.nameLength'))
+      .max(20, t('channels.modal.errors.nameLength'))
+      .required(t('channels.modal.errors.nameLength'))
+      .test(
+        'unique-name',
+        t('channels.modal.errors.nameExists'),
+        (value) => !channels.some((ch) => ch.name === value)
+      ),
+  });
+
   const form = useForm({
     initialValues: { name: '' },
-    validate: {
-      name: (value) => {
-        if (value.length < 3 || value.length > 20) return t('channels.modal.errors.nameLength');
-        if (channels.some((ch) => ch.name === value)) return t('channels.modal.errors.nameExists');
-        return null;
-      },
-    },
+    validate: yupResolver(schema),
   });
 
   const handleSubmit = (values) => {
@@ -52,12 +59,7 @@ const CreateChannelModal = () => {
   };
 
   return (
-    <Modal
-      opened={modal.type === 'create'}
-      onClose={closeModal}
-      title={t('channels.modal.createTitle')}
-      centered
-    >
+    <Modal opened={modal.type === 'create'} onClose={closeModal} title={t('channels.modal.createTitle')} centered>
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <TextInput
           label={t('channels.modal.nameLabel')}

@@ -1,10 +1,12 @@
 // src/pages/LoginPage.jsx
 import { useState } from 'react';
-import { useForm } from '@mantine/form';
+import { useForm, yupResolver } from '@mantine/form';
 import { TextInput, PasswordInput, Button, Box, Title, Container, Alert, Anchor, Text } from '@mantine/core';
 import { useNavigate, Navigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
 import { useAuthStore } from '../store/StoreProvider';
+
 const LoginPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -12,16 +14,18 @@ const LoginPage = () => {
   const token = useAuthStore((state) => state.token);
   const [authError, setAuthError] = useState(null);
 
+  const schema = Yup.object().shape({
+    username: Yup.string().required(t('login.errors.usernameRequired', 'Введите имя пользователя')),
+    password: Yup.string().required(t('login.errors.passwordRequired', 'Введите пароль')),
+  });
+
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
       username: '',
       password: '',
     },
-    validate: {
-      username: (value) => (value.length > 0 ? null : t('login.errors.usernameRequired', 'Введите имя пользователя')),
-      password: (value) => (value.length > 0 ? null : t('login.errors.passwordRequired', 'Введите пароль')),
-    },
+    validate: yupResolver(schema),
   });
 
   if (token) {
@@ -34,9 +38,7 @@ const LoginPage = () => {
     try {
       const response = await fetch('/api/v1/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(values),
       });
 
@@ -45,7 +47,6 @@ const LoginPage = () => {
       }
 
       const data = await response.json();
-
       login(data.token, data.username);
       navigate('/');
     } catch (error) {

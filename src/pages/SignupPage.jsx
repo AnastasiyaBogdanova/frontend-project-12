@@ -1,9 +1,10 @@
 // src/pages/SignupPage.jsx
 import { useState } from 'react';
-import { useForm } from '@mantine/form';
+import { useForm, yupResolver } from '@mantine/form';
 import { TextInput, PasswordInput, Button, Box, Title, Container, Alert, Anchor, Text } from '@mantine/core';
 import { useNavigate, Navigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import * as Yup from 'yup';
 import { useAuthStore } from '../store/StoreProvider';
 
 const SignupPage = () => {
@@ -13,6 +14,19 @@ const SignupPage = () => {
   const token = useAuthStore((state) => state.token);
   const [authError, setAuthError] = useState(null);
 
+  const schema = Yup.object().shape({
+    username: Yup.string()
+      .min(3, t('signup.errors.usernameLength', 'От 3 до 20 символов'))
+      .max(20, t('signup.errors.usernameLength', 'От 3 до 20 символов'))
+      .required(t('signup.errors.usernameLength', 'От 3 до 20 символов')),
+    password: Yup.string()
+      .min(6, t('signup.errors.passwordLength', 'Не менее 6 символов'))
+      .required(t('signup.errors.passwordLength', 'Не менее 6 символов')),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], t('signup.errors.passwordsMismatch', 'Пароли должны совпадать'))
+      .required(t('signup.errors.passwordsMismatch', 'Пароли должны совпадать')),
+  });
+
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: {
@@ -20,15 +34,7 @@ const SignupPage = () => {
       password: '',
       confirmPassword: '',
     },
-    validate: {
-      username: (value) => {
-        if (value.length < 3 || value.length > 20) return t('signup.errors.usernameLength', 'От 3 до 20 символов');
-        return null;
-      },
-      password: (value) => (value.length >= 6 ? null : t('signup.errors.passwordLength', 'Не менее 6 символов')),
-      confirmPassword: (value, values) =>
-        value === values.password ? null : t('signup.errors.passwordsMismatch', 'Пароли должны совпадать'),
-    },
+    validate: yupResolver(schema),
   });
 
   if (token) {
@@ -41,15 +47,13 @@ const SignupPage = () => {
     try {
       const response = await fetch('/api/v1/signup', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: values.username, password: values.password }),
       });
 
       if (!response.ok) {
         if (response.status === 409) {
-          throw new Error(t('signup.errors.userExists', 'Пользователь с таким именем уже существует'));
+          throw new Error(t('signup.errors.userExists', 'Такой пользователь уже существует'));
         }
         throw new Error(t('signup.errors.general', 'Ошибка при регистрации'));
       }
